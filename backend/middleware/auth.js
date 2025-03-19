@@ -9,7 +9,7 @@ import jwt from 'jsonwebtoken'
             return
         }
         const decoded =  jwt.verify(token,process.env.SECRET_KEY)
-        req.userId = decoded._id
+        req._id = decoded._id
         next();
     }
     catch(error){

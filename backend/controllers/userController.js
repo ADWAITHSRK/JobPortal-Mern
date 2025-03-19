@@ -3,8 +3,8 @@ import bcrypt from "bcryptjs";
 import { json } from "express";
 import jwt from "jsonwebtoken";
 
-const generateToken = (userId) => {
-  return jwt.sign({ _id:userId }, process.env.SECRET_KEY || "qazwsxedcrfv", {
+const generateToken = (_id) => {
+  return jwt.sign({ _id:_id }, process.env.SECRET_KEY || "qazwsxedcrfv", {
     expiresIn: "7d",
   });
 };
@@ -81,8 +81,8 @@ export const logout = async (req,res) =>{
 
 export const getProfile = async (req,res) =>{
     try{
-    const {userId} = req.userId
-    const user = await User.findOne({_id:userId}).select("-password")
+    const {_id} = req._id
+    const user = await User.findOne({_id:_id}).select("-password")
     if (!user){
         res.status(400).json({message:"User Not Found"})
         return
@@ -103,7 +103,7 @@ export const updateProfile = async (req,res) => {
     if(skills){
       array=skills.split(",")
     }
-    const user = await User.findById(req.userId)
+    const user = await User.findById(req._id)
     if (!user){
       res.status(400).json({message:"user not Found",success:false})
       return
