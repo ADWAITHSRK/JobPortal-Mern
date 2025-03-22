@@ -3,12 +3,11 @@ import { apiSlice } from "./apiSlice";
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints : (builder) => ({
         register : builder.mutation({
-            query : (data) =>(
+            query : (formData) =>(
                 {
                     url :'/user/register',
                     method:"POST",
-                    body:data,
-                    credentials:'include'
+                    body:formData,
                 }
             )
         }),

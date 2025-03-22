@@ -11,9 +11,17 @@ dotenv.config();
 const port = process.env.PORT ||  7000;
 const app = express();
 
+const corsOptions = {
+    origin: ['http://localhost:5173', 'http://localhost:5174'],
+    credentials: true,
+    optionsSuccessStatus: 200
+  };
+  
+
 
 connectDb()
-app.use(cors());
+app.use(cors(corsOptions))
+app.use(express.json());
 
 app.use('/api/user',userRoute)
 app.use('/api/job',jobRoute)

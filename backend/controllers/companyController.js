@@ -1,4 +1,5 @@
-import { Company } from "../models/company.model.js";
+import { Company } from "../models/companyModel.js";
+import { Job } from "../models/jobModel.js";
 
 export const registerCompany = async (req, res) => {
     try {

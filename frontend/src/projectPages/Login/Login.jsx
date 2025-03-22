@@ -1,8 +1,9 @@
 import { Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { useLoginMutation } from "src/redux/features/userApiSlice";
+import { useLoginMutation } from "../../redux/features/userApiSlice.js";
 import Navbar from "../../projectComponents/Navbar/Navbar";
+import { toast, Toaster } from "sonner";
 
 const Login = () => {
   const [login,{loading}] = useLoginMutation()
@@ -13,9 +14,13 @@ const Login = () => {
     e.preventDefault()
     try{
       const res = await login({email,password}).unwrap()
+      toast.success("User Logged In Successfully")
+      setEmail('')
+      setPassword('')
       console.log(res)
     }
     catch(err){
+      toast.error("User Login Failed")
       console.log(err)
     }
   }
@@ -24,7 +29,7 @@ const Login = () => {
     <div className="flex flex-col h-screen">
       <Navbar />
       <div class="flex items-center h-screen bg-white  ">
-      <div class="w-[350px] h-[350px] border-y-gray-200   flex  flex-col items-center justify-center shadow-xl rounded-lg mx-auto">
+      <div class="w-[400px] h-[450px] border-y-gray-200   flex  flex-col items-center justify-center shadow-xl rounded-lg mx-auto">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8 ">
           Login
         </h2>
