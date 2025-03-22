@@ -1,5 +1,7 @@
 import { Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Upload, Button } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import React from "react";
 
 const Signup = () => {
@@ -67,23 +69,43 @@ const Signup = () => {
               placeholder="Enter your Password"
             />
           </div>
-          <div>
-            <label
-              htmlFor="role"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Role
-            </label>
-            <select
-              id="role"
-              className="mt-1 block w-full px-1  border border-gray-300 rounded-md shadow-sm "
-              required
-            >
-              <option className="text-sm" value="">Select your role</option>
-              <option  className="text-sm" value="student">Student</option>
-              <option  className="text-sm" value="recruiter">Recruiter</option>
-            </select>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <label
+                htmlFor="role"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Role
+              </label>
+              <select
+                id="role"
+                className="mt-1 block w-full px-1  border border-gray-300 rounded-md shadow-sm "
+                required
+              >
+                <option className="text-sm" value="">
+                  Select your role
+                </option>
+                <option className="text-sm" value="student">
+                  Student
+                </option>
+                <option className="text-sm" value="recruiter">
+                  Recruiter
+                </option>
+              </select>
+            </div>
+
+            <div className="mt-auto">
+              <Upload style={{ height: "25px" }}>
+                <Button
+                  icon={<UploadOutlined />}
+                  style={{ height: "25px", lineHeight: "25px" }}
+                >
+                  Upload Image
+                </Button>
+              </Upload>
+            </div>
           </div>
+
           <button
             type="submit"
             className="w-full flex items-center justify-center bg-[#54a3f8] hover:bg-[rgb(105,128,187)] mt-8 rounded-sm"

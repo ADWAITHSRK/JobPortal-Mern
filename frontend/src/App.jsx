@@ -1,20 +1,30 @@
-import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom';
-import Navbar from './projectComponents/Navbar/Navbar'
-import Login from './projectPages/Login/Login';
-import SignUp from './projectPages/Signup/Signup';
+import React from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Navbar from "./projectComponents/Navbar/Navbar";
+import Login from "./projectPages/Login/Login";
+import SignUp from "./projectPages/Signup/Signup";
+import Home from "./projectPages/Home/Home";
 
 const App = () => {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <SignUp />,
+    },
+  ]);
   return (
     <div>
-       <Router>
-       {/* <Navbar/> */}
-       <Login/>
-       {/* <SignUp/> */}
-       </Router>
-      
+      <RouterProvider router={router} />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

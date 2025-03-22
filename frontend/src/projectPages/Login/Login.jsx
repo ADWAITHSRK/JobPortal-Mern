@@ -1,16 +1,34 @@
 import { Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useState } from "react";
+import { useLoginMutation } from "src/redux/features/userApiSlice";
+import Navbar from "../../projectComponents/Navbar/Navbar";
 
 const Login = () => {
-  const loading = false;
+  const [login,{loading}] = useLoginMutation()
+  const [email ,setEmail] = useState('')
+  const [password ,setPassword] = useState('')
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    try{
+      const res = await login({email,password}).unwrap()
+      console.log(res)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
   return (
-    <div class="flex items-center h-screen bg-white  ">
+    <div className="flex flex-col h-screen">
+      <Navbar />
+      <div class="flex items-center h-screen bg-white  ">
       <div class="w-[350px] h-[350px] border-y-gray-200   flex  flex-col items-center justify-center shadow-xl rounded-lg mx-auto">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-8 ">
           Login
         </h2>
-        <form className="mb-6">
+        <form onSubmit={handleSubmit} className="mb-6">
           <div className="mb-6">
             <label
               htmlFor="email"
@@ -21,6 +39,8 @@ const Login = () => {
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={(e)=>setEmail(e.target.value)}
               className="mt-1 w-full rounded-md shadow-sm"
               placeholder="Enter your Mail"
             />
@@ -35,6 +55,8 @@ const Login = () => {
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
               className="mt-1 w-full rounded-md shadow-sm"
               placeholder="Enter your Password"
             />
@@ -54,6 +76,7 @@ const Login = () => {
           <p className="text-center text-sm mt-5"><span>Dont have an Account?</span> <span className="text-sky-500"><Link to =''>Sign-Up</Link></span></p>
         </form>
       </div>
+    </div>
     </div>
   );
 };
