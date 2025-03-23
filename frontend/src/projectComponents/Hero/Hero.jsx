@@ -9,8 +9,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../../components/components/ui/carousel";
+import JobCard from "../JobCard/JobCard";
 
 const Hero = () => {
+
+
   const data = [
     "Fullstack Developer",
     "Frontend Developer",
@@ -41,7 +44,10 @@ const Hero = () => {
         >
           <CarouselContent>
             {data.map((item, index) => (
-              <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3 pl-2">
+              <CarouselItem
+                key={index}
+                className="md:basis-1/2 lg:basis-1/3 pl-2"
+              >
                 <div className="">
                   <Button className="w-full px-1">{item}</Button>
                 </div>
@@ -51,6 +57,7 @@ const Hero = () => {
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
+        
       </div>
     </div>
   );

@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 const Footer = () => {
   return (
-    <div className="h-40 bg-neutral-700 flex items-center justify-center text-white mt-3 fixed bottom-0 w-full">
+    
+       <div className="bg-neutral-700 flex items-center justify-center text-white w-full h-42  bottom-0">
       <div className="grid grid-cols-3 gap-18">
         <div className="col-span-1 flex flex-col items-center justify-center">
           <h1 className="text-2xl font-bold text-center">
@@ -49,6 +50,7 @@ const Footer = () => {
         </div>
       </div>
     </div>
+  
   );
 };
 

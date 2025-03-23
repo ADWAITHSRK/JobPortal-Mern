@@ -20,7 +20,8 @@ const App = () => {
     {
       path: "/register",
       element: <SignUp />,
-    }
+    },
+  
   ]);
   return (
     <div>
