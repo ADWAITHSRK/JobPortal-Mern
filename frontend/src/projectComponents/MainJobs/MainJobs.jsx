@@ -5,7 +5,7 @@ const MainJobs = () => {
     const jobListings = [
         {
           title: "Software Engineer",
-          location: "San Francisco, CA",
+          location: "Banglore, India",
           jobType: "Full-time",
           experienceLevel: 2,
           company: {
@@ -17,7 +17,7 @@ const MainJobs = () => {
         },
         {
           title: "Data Scientist",
-          location: "New York, NY",
+          location: "Hyderabad, India",
           jobType: "Contract",
           experienceLevel: 3,
           company: {
@@ -29,7 +29,7 @@ const MainJobs = () => {
         },
         {
           title: "Product Manager",
-          location: "Seattle, WA",
+          location: "Pune, India",
           jobType: "Full-time",
           experienceLevel: 5,
           company: {

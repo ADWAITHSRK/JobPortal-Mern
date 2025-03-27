@@ -1,7 +1,15 @@
 import React from "react";
-import { Avatar, Card, Image, Tag } from "antd";
-import { Bookmark, BookmarkCheckIcon, BookmarkX, LucideBookmarkX, Star } from "lucide-react";
-import { Button } from "../../components/components/ui/button";
+import { Avatar, Card, Image, Tag, Button } from "antd";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { save ,remove } from "../.././redux/features/savedJobSlice.js";
+import {
+  Bookmark,
+  BookmarkCheckIcon,
+  BookmarkX,
+  LucideBookmarkX,
+  Star,
+} from "lucide-react";
 
 // const job = {
 //   title: "Programmer Analyst",
@@ -16,8 +24,24 @@ import { Button } from "../../components/components/ui/button";
 //   applications: [1, 2, 3, 4], // Example count
 // };
 
-const JobCard = ({job}) => {
-   
+const JobCard = ({ job }) => {
+  const location = useLocation();
+  const dispatch = useDispatch();
+  const savedJobs = useSelector((state) => state.savedJobs.savedJobs);
+  const isSavedPage = location.pathname === '/saved'
+
+  const isMatch = savedJobs.some((item) => item._id === job._id);
+
+  const handleSave = () => {
+    if (!isMatch) {
+      dispatch(save(job));
+    }
+  };
+
+  const handleRemove = () => {
+      dispatch(remove(job._id));
+  };
+
   return (
     <div className="">
       <Card className=" container w-62 h-75 p-5 radius-10 shadow-md flex justify-center items-center  ">
@@ -28,7 +52,7 @@ const JobCard = ({job}) => {
               alt="Company Logo"
               className="w-14 h-14 rounded-full"
             />
-            
+
             <Bookmark className="w-6 h-6" />
           </div>
 
@@ -48,10 +72,7 @@ const JobCard = ({job}) => {
             >
               {job.jobType}
             </Tag>
-            <Tag
-              color='green'
-              className="text-xs px-2 py-1 rounded-md"
-            >
+            <Tag color="green" className="text-xs px-2 py-1 rounded-md">
               {job.experienceLevel === 0
                 ? "Entry Level"
                 : `${job.experienceLevel} yrs Exp`}
@@ -64,17 +85,28 @@ const JobCard = ({job}) => {
             </span>
           </div>
           <div className="flex justify-between items-center mb-3">
-            <Button className='border-b border-white bg-gray-200 shadow-lg'>Details</Button>
+            <Button
+              style={{
+                backgroundColor: "#e5e7eb", // bg-gray-200
+                borderBottom: "1px solid white",
+                boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              Details
+            </Button>
 
-            <Button className='bg-amber-200'>Save</Button>
-
-
+            <Button
+              onClick={isSavedPage ? handleRemove : handleSave}
+              disabled={isMatch && !isSavedPage}
+              style={{ backgroundColor: "#fde68a" }} // bg-amber-200
+            >
+              {isSavedPage ? 'Remove' : 'Save'}
+            </Button>
           </div>
         </div>
       </Card>
     </div>
   );
-
 };
 
 export default JobCard;

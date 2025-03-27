@@ -14,7 +14,7 @@ const Navbar = () => {
     };
   return (
     <div className="bg-white shadow-sm px-6">
-      <div className=" flex items-center justify-between max-w-6xl mx-auto h-16 px-2">
+      <div className=" flex items-center justify-between max-w-6xl mx-auto h-18 px-2">
         <div>
         <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">
   Talent<span className="text-[#F83002]">-Hire</span>
@@ -40,7 +40,7 @@ const Navbar = () => {
                     <Link>Jobs</Link>
                   </li>
                   <li>
-                    <Link>Browse</Link>
+                    <Link>Saved</Link>
                   </li>
                 </>
               )}
