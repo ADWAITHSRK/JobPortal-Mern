@@ -65,8 +65,8 @@ export const login = async (req,res) =>{
             return
         }
         const token = generateToken(user._id.toString())
-        res.cookie("auth_token",token)
-        return res.status(201).json(user)
+        res.cookie("auth_token",token,{httpOnly:true})
+        return res.status(201).json(token)
 
     }
     catch(error){

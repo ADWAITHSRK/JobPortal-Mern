@@ -8,28 +8,17 @@ import Login from "../Login/Login.jsx";
 import Profile from "../Profile/Profile.jsx";
 import JobSearchPage from "../Job/Job.jsx";
 import JobDetails from "../JobDetails/JobDetails.jsx";
+import ProfileUpdatePage from "../UploadProfilePage/UpdateProfilePage.jsx";
+import UpdateProfile from "../UploadProfilePage/UpdateProfilePage.jsx";
 
 const Home = () => (
-  <div className="flex flex-col gap-3 h-screen">
-    {" "}
-    {/* Added gap-3 */}
-    <header>
-      <Navbar />
-    </header>
-    <main className="container mx-auto flex flex-col flex-grow pb-[100px]">
-      {" "}
-      {/* Adjust pb-[100px] as needed */}
-      {/* <Hero />
-      <MainJobs />
-      <Profile />  */}
-      <JobSearchPage/> 
-      {/* <JobDetails /> */}
-    </main>
-    <footer className="mt-auto w-full bg-neutral-700 sticky bottom-0">
-      {" "}
-      {/* Changed to sticky bottom-0 */}
-      <Footer />
-    </footer>
+  <div className="flex flex-col">
+    <Hero />
+    <MainJobs />
+    <Profile />
+    <UpdateProfile />
+    <JobSearchPage />
+    <JobDetails />
   </div>
 );
 

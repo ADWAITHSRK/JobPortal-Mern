@@ -109,3 +109,34 @@ export const findApplicants =  async (req , res) =>  {
   }
 }
 
+
+export const editJob =  async (req , res) =>  {
+  try  {
+      const {id} = req.params
+      const {title , description , requirements , salary , location ,jobType , experienceLevel , position } = req.body
+
+      const job = await job.findOne({_id:id})
+      if(!job){
+        return res.status(404).json({message:"Job Not Found"})
+      }
+
+    if (title) job.title = title;
+    if (description) job.description = description;
+    if (requirements) job.requirements = requirements;
+    if (salary) job.salary = salary;
+    if (location) job.location = location;
+    if (jobType) job.jobType = jobType;
+    if (experienceLevel) job.experienceLevel = experienceLevel;
+    if (position) job.position = position;
+
+    await job.save()
+    return res.status(200).json(job)
+  }
+  catch(error){
+      res.status(500).json({message:"internal Server Error",error:error.message})
+  }
+}
+
+
+
+

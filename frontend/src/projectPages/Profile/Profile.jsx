@@ -19,7 +19,7 @@ const Profile = () => {
     email: "adwaithkrishnan@example.com",
     phoneNumber: "+91 9876543210",
     password: "hashed_password_here",
-    role: "applicdant",
+    role: "recruiter",
     profile: {
       bio: "A passionate full-stack developer with expertise in MERN stack.",
       skills: ["TypeScript", "Node.js", "React", "Tailwind CSS"],
@@ -93,22 +93,27 @@ const Profile = () => {
               <hr  />
             </>
           ) : (
-            /* Recruiter Section */
-            <div>
+             !user?.profile?.company ? (<div className="flex justify-center items-center mt-12"><Button className="bg-gray-400">Create Company</Button></div>):(<div>
               <div className="flex items-center justify-between gap-4 mt-3 mb-6">
+                <div>
                 <img
-                  src={user.profile.company.logo}
-                  alt={`${user.profile.company.name} logo`}
+                  src={user?.profile?.company?.logo}
+                  alt={`${user?.profile?.company?.name} logo`}
                   className="w-16 h-16 object-contain rounded-md border"
                 />
+       
+                <span className="text-sm mt-2.5 flex text-gray-800"><p className="text-gray-700">ID:</p>afa23fwf4gdfg5</span>
+                </div>
+              
                 <div>
                   <h3 className="text-lg font-semibold">
-                    {user.profile.company.name}
+                    {user?.profile?.company?.name}
                   </h3>
                 </div>
               </div>
               <hr />
-            </div>
+            </div>)
+            
           )}
 
           {/* Resume Section */}

@@ -6,13 +6,23 @@ import SignUp from "./projectPages/Signup/Signup";
 import Home from "./projectPages/Home/Home";
 import { Toaster } from "./components/components/ui/sonner";
 import SavedJobs from "./projectPages/SavedJobs/SavedJobs";
-
+import Layout from "./projectComponents/Layout/Layout";
+import JobEdit from "./projectComponents/JobEdit/JobEdit";
+import Profile from "./projectPages/Profile/Profile";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element:<Layout><Home /></Layout> ,
+    },
+    {
+      path: "/profile",
+      element:<Layout><Profile /></Layout> ,
+    },
+    {
+      path: "/jobedit",
+      element:<Layout><JobEdit /></Layout> ,
     },
     {
       path: "/login",
