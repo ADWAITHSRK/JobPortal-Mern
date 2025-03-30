@@ -26,7 +26,13 @@ const CreateCompanyForm = () => {
     const handleSubmit =async (e) => {
         e.preventDefault();
         try {
-            const res = await regcompany({ companyName: formData.name, images: formData.images }).unwrap()
+            const formDataToSend = new FormData()
+            formDataToSend.append('companyName',formData.name)
+            if (formData.images){
+                formDataToSend.append('images',formData.images)
+
+            }
+            const res = await regcompany(formDataToSend).unwrap()
             console.log(res)
             toast.success("Company Created SuccesFully")
         }

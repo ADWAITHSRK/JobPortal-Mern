@@ -79,21 +79,26 @@ export const logout = async (req,res) =>{
     return res.status(200).json({message:"Logout SuccesFully"})
 }
 
-export const getProfile = async (req,res) =>{
-    try{
-    const _id = req._id
-    const user = await User.findOne({_id}).select("-password")
-    if (!user){
-        res.status(400).json({message:"User Not Found"})
-        return
-    }
-    return res.status(200).json(user)
-    }
-    catch(error){
-        return res.status(500).json({message:"Internal Server Errror"})
+export const getProfile = async (req, res) => {
+  try {
+      const _id = req._id; // Assuming req._id is set by middleware (e.g., authentication)
+      const user = await User.findOne({ _id })
+          .select("-password")
+          .populate({
+              path: 'profile.company', // Correct path to populate company within profile
+          });
 
-    }
-}
+      if (!user) {
+          return res.status(400).json({ message: "User Not Found" });
+      }
+
+      return res.status(200).json(user);
+  } catch (error) {
+      console.error("Error fetching profile:", error); // Log the error for debugging
+      return res.status(500).json({ message: "Internal Server Error" });
+  }
+};
+;
 
 export const updateProfile = async (req,res) => {
   try{

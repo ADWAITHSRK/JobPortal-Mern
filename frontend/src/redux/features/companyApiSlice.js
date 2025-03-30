@@ -8,6 +8,7 @@ export const companyApiSlice = apiSlice.injectEndpoints({
                     url :'/company/regcompany',
                     method:"POST",
                     body:formData,
+                    credentials:"include",
                 }
             )
         }),
@@ -20,6 +21,18 @@ export const companyApiSlice = apiSlice.injectEndpoints({
                 }
             )
         }),
+        updatecompany: builder.mutation({
+            query: (formData) => {
+                const id =  formData.id;
+                return {
+                    url: `/company/update/${id}`,
+                    method: 'PUT',
+                    body: formData.formData,
+                    credentials: 'include',
+                    // FormData serialization is handled automatically
+                };
+            }
+        }),
         
     })
 })
@@ -27,4 +40,5 @@ export const companyApiSlice = apiSlice.injectEndpoints({
 export const {
     useGetcompanyQuery,
     useRegcompanyMutation,
+    useUpdatecompanyMutation
   } = companyApiSlice;

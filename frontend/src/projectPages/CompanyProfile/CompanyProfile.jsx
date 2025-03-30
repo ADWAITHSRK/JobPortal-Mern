@@ -10,7 +10,7 @@ import {
   AvatarImage,
 } from "../../components/components/ui/avatar";
 import { Button } from "../../components/components/ui/button";
-import { Building, Globe, MapPin, Edit2Icon } from "lucide-react";
+import { Building, Globe, MapPin, Edit2Icon, IdCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import CreateCompanyForm from "../CreateCompany/CreateCompany";
 import { useGetcompanyQuery } from "../../redux/features/companyApiSlice.js";
@@ -53,6 +53,9 @@ const CompanyProfile = () => {
             {company.name}
           </CardTitle>
           <p className="text-gray-500 text-sm">
+            Id: {company._id}
+          </p>
+          <p className="text-gray-500 text-sm font-bold">
             Joined: {new Date(company.createdAt).toLocaleDateString()}
           </p>
         </CardHeader>
@@ -75,6 +78,7 @@ const CompanyProfile = () => {
                 {company.website}
               </a>
             </div>
+            
           </div>
 
           <div>

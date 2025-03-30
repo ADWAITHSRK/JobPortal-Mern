@@ -15,12 +15,17 @@ import UpdateCompanyForm from "./projectPages/CompanyUpdate/CompanyUpdate";
 import CreateCompanyForm from "./projectPages/CreateCompany/CreateCompany";
 import CompanyProfile from "./projectPages/CompanyProfile/CompanyProfile";
 import AdminJob from "./projectPages/AdminJobsPage/AdminJobsPage";
+import UpdateProfile from "./projectPages/UploadProfilePage/UpdateProfilePage";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element:<Layout><Home /></Layout> ,
+    },
+    {
+      path: "/update-profile",
+      element:<Layout><UpdateProfile /></Layout> ,
     },
     {
       path: "/company-profile",
@@ -66,6 +71,10 @@ const App = () => {
     {
       path: "/admin-job",
       element: <AdminJob />,
+    },
+    {
+      path: "/job-edit",
+      element: <JobEdit />,
     },
   
   ]);

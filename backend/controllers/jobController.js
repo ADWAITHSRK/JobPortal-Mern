@@ -5,7 +5,7 @@ export const postJob = async (req, res) => {
     const {
       title,
       description,
-      requirments,
+      requirements,
       salary,
       location,
       jobType,
@@ -18,11 +18,11 @@ export const postJob = async (req, res) => {
     if (
       !title ||
       !description ||
-      !requirments ||
+      !requirements ||
       !salary ||
       !location ||
       !jobType ||
-      !experience ||
+      !experienceLevel ||
       !position ||
       !companyId
     ) {
@@ -32,7 +32,7 @@ export const postJob = async (req, res) => {
     const job = new Job({
       title: title,
       description: description,
-      requirements: requirments,
+      requirements: requirements,
       salary: salary,
       experienceLevel: experienceLevel,
       location: location,
@@ -47,7 +47,7 @@ export const postJob = async (req, res) => {
   } catch (error) {
     console.log(error);
 
-    return res.status(500).message({ message: "Internal Server Error" ,error:error.message});
+    return res.status(500).json({ message: "Internal Server Error" ,error:error.message});
   }
 };
 

@@ -78,6 +78,7 @@ export const getCompanyById = async (req, res) => {
 }
 export const updateCompany = async (req, res) => {
     try {
+        
         const { name, description, website, location } = req.body;
  
         const cloudinaryUrls = req.body.cloudinaryUrls;
@@ -102,6 +103,24 @@ export const updateCompany = async (req, res) => {
             success:true
         })
 
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const getCompanyAndDelete = async (req, res) => {
+    try {
+        const Id = req._id; 
+        const company = await Company.find({ userId:Id });
+        if (company.length === 0) {
+            return res.status(404).json({
+                message: "Companies not found.",
+                success: false
+            })
+        }
+        await Company.deleteMany({userId:Id})
+        return res.status(200).json({message:"Deleted All Succesfully"}
+        )
     } catch (error) {
         console.log(error);
     }

@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useGetcompanyQuery, useUpdatecompanyMutation } from '../../redux/features/companyApiSlice.js';
+import { toast } from 'sonner';
 
 const UpdateCompanyForm = () => {
+    const { data: company, isLoading } = useGetcompanyQuery();
+    const [updatecompany] = useUpdatecompanyMutation();
+    
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -8,6 +13,19 @@ const UpdateCompanyForm = () => {
         location: '',
         images: null
     });
+    
+    useEffect(() => {
+        
+        if (company) {
+            setFormData({
+                name: company.name || '',
+                description: company.description || '',
+                website: company.website || '',
+                location: company.location || '',
+                images: null 
+            });
+        }
+    }, [company]);
 
     const handleChange = (e) => {
         setFormData({
@@ -17,17 +35,45 @@ const UpdateCompanyForm = () => {
     };
 
     const handleFileChange = (e) => {
-        setFormData({
-            ...formData,
-            images: e.target.files[0]
-        });
+        if (e.target.files && e.target.files.length > 0) {
+            setFormData({
+                ...formData,
+                images: e.target.files[0]
+            });
+        }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Updated Company Details:', formData);
-        // Here, you can add API call to update company details, including file upload
+        
+        if (!company || !company._id) {
+            toast.error("Company data not available");
+            return;
+        }
+
+        try {
+            const formDataToSend = new FormData();
+            formDataToSend.append('name', formData.name);
+            formDataToSend.append('description', formData.description);
+            formDataToSend.append('website', formData.website);
+            formDataToSend.append('location', formData.location);
+            
+            if (formData.images) {
+                formDataToSend.append('images', formData.images);
+            }
+    
+            const res = await updatecompany({ formData: formDataToSend, id: company._id }).unwrap();
+            console.log(res)
+            toast.success("Updated Successfully");
+        } catch (error) {
+            console.error("Update error:", error);
+            toast.error(error.data?.message || "Update failed");
+        }
     };
+    
+    if (isLoading) {
+        return <div className="max-w-lg mx-auto p-6 text-center">Loading company data...</div>;
+    }
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg mt-12">
