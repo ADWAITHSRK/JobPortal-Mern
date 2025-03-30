@@ -81,8 +81,8 @@ export const logout = async (req,res) =>{
 
 export const getProfile = async (req,res) =>{
     try{
-    const {_id} = req._id
-    const user = await User.findOne({_id:_id}).select("-password")
+    const _id = req._id
+    const user = await User.findOne({_id}).select("-password")
     if (!user){
         res.status(400).json({message:"User Not Found"})
         return

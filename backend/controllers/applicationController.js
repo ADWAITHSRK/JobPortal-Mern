@@ -60,6 +60,7 @@ export const updateStatus = async (req , res) => {
     try {
         const {status} = req.body
         const applicationid = req.params.id
+        
 
         if(!status) {
             res.status(400).json({message:"Some Data is missing"})

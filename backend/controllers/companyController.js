@@ -1,8 +1,19 @@
 import { Company } from "../models/companyModel.js";
 import { Job } from "../models/jobModel.js";
+import { User } from "../models/userModel.js";
+
 
 export const registerCompany = async (req, res) => {
     try {
+        const Id = req._id
+        const user = await User.findById(Id)
+        if(user?.profile?.company){
+            return res.status(400).json({
+                message: "Company All Ready Registred.",
+                success: false
+            })
+        }
+
         const { companyName } = req.body;
         if (!companyName) {
             return res.status(400).json({
@@ -10,41 +21,38 @@ export const registerCompany = async (req, res) => {
                 success: false
             });
         }
-        let company = await Company.findOne({ name: companyName });
-        if (company) {
-            return res.status(400).json({
-                message: "You can't register same company.",
-                success: false
-            })
-        };
-        company = await Company.create({
+         const cloudinaryUrls = req.body.cloudinaryUrls;
+            if (cloudinaryUrls.length === 0) {
+              res.status(500).json({ message: "Internal Server Error" });
+              return;
+            }
+            const imageUrls = cloudinaryUrls[0];
+       
+        const company = await Company.create({
             name: companyName,
-            userId: req.id
+            logo:imageUrls,
+            userId: Id
         });
-
-        return res.status(201).json({
-            message: "Company registered successfully.",
-            company,
-            success: true
-        })
+        await company.save()
+        return res.status(201).json(
+            company)
     } catch (error) {
         console.log(error);
     }
 }
 export const getCompany = async (req, res) => {
     try {
-        const userId = req.id; // logged in user id
-        const companies = await Company.find({ userId });
-        if (!companies) {
+        const Id = req._id; 
+        const company = await Company.find({ userId:Id });
+        if (!company) {
             return res.status(404).json({
                 message: "Companies not found.",
                 success: false
             })
         }
-        return res.status(200).json({
-            companies,
-            success:true
-        })
+        return res.status(200).json(
+            company[0]
+        )
     } catch (error) {
         console.log(error);
     }

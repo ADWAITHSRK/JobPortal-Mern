@@ -12,7 +12,7 @@ import {upload,uploadToCloudinary} from "../middleware/cloudinary.js"
 
 
 // Register a new company (requires authentication)
-router.post("/regcompany", authMiddleware, registerCompany);
+router.post("/regcompany", authMiddleware, upload.array("images", 5),uploadToCloudinary,registerCompany);
 
 // Get all companies for the logged-in user
 router.get("/getcompany", authMiddleware, getCompany);

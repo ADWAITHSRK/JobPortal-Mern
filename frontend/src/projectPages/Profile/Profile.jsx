@@ -11,9 +11,11 @@ import {
 } from "../../components/components/ui/avatar";
 import { Badge } from "../../components/components/ui/badge";
 import { Button } from "../../components/components/ui/button";
-import { Mail, Phone, FileText, Building } from "lucide-react";
+import { Mail, Phone, FileText, Building, Edit2Icon } from "lucide-react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate()
   const user = {
     fullName: "Adwaith Krishnan",
     email: "adwaithkrishnan@example.com",
@@ -36,7 +38,7 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-10 px-6 flex justify-center">
+    <div className="min-h-screen bg-white py-10 px-6 flex justify-center">
       <Card className="max-w-3xl w-full shadow-lg">
         {/* Profile Header */}
         <CardHeader className="flex flex-col items-center">
@@ -90,21 +92,37 @@ const Profile = () => {
                   ))}
                 </div>
               </div>
-              <hr  />
+              <hr />
             </>
+          ) : !user?.profile?.company ? (
+            <div className="flex justify-center items-center mt-12">
+              <Button className="bg-gray-400">Create Company</Button>
+            </div>
           ) : (
-             !user?.profile?.company ? (<div className="flex justify-center items-center mt-12"><Button className="bg-gray-400">Create Company</Button></div>):(<div>
+            <div>
               <div className="flex items-center justify-between gap-4 mt-3 mb-6">
                 <div>
-                <img
-                  src={user?.profile?.company?.logo}
-                  alt={`${user?.profile?.company?.name} logo`}
-                  className="w-16 h-16 object-contain rounded-md border"
-                />
-       
-                <span className="text-sm mt-2.5 flex text-gray-800"><p className="text-gray-700">ID:</p>afa23fwf4gdfg5</span>
+                  <div className="flex gap-2 ">
+                    <img
+                      src={user?.profile?.company?.logo}
+                      alt={`${user?.profile?.company?.name} logo`}
+                      className="w-16 h-16 object-contain rounded-md border"
+                    />
+                    <Button
+                    onClick={()=>(navigate('/company-update'))}
+                      size="small"
+                      className="flex items-center justify-center !p-0 !h-6 !w-6 cursor-pointer"
+                      
+                    >
+                      <Edit2Icon className="w-3 h-3" />
+                    </Button>
+                  </div>
+
+                  <span className="text-sm mt-2.5 flex text-gray-800">
+                    <p className="text-gray-700">ID:</p>afa23fwf4gdfg5
+                  </span>
                 </div>
-              
+
                 <div>
                   <h3 className="text-lg font-semibold">
                     {user?.profile?.company?.name}
@@ -112,8 +130,7 @@ const Profile = () => {
                 </div>
               </div>
               <hr />
-            </div>)
-            
+            </div>
           )}
 
           {/* Resume Section */}

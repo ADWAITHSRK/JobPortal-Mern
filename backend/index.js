@@ -6,6 +6,8 @@ import userRoute from './routes/userRoute.js'
 import jobRoute from './routes/jobRoute.js'
 import applicationRoute from './routes/applicationRoute.js'
 import companyRoute from './routes/companyRoute.js'
+import cookieParser from "cookie-parser";
+
 
 dotenv.config();
 const port = process.env.PORT ||  7000;
@@ -22,6 +24,8 @@ const corsOptions = {
 connectDb()
 app.use(cors(corsOptions))
 app.use(express.json());
+app.use(cookieParser());
+
 
 app.use('/api/user',userRoute)
 app.use('/api/job',jobRoute)

@@ -69,7 +69,7 @@ export const findAllJobs =  async (req , res) =>  {
 export const findJobById =  async (req , res) =>  {
     try  {
         const job = await  Job.findById({_id:req.params.id}).populate({path:"applications"})
-        if (job.length  == 0) {
+        if (!job) {
             res.status(404).json({message:"job Not Found"})
             return 
         }
@@ -79,6 +79,23 @@ export const findJobById =  async (req , res) =>  {
         res.status(500).json({message:"internal Server Error",error:error.message})
     }
 }
+
+export const findJobByIdAndDelete =  async (req , res) =>  {
+  try  {
+      const job = await  Job.findById({_id:req.params.id})
+      if (!job) {
+          res.status(404).json({message:"job Not Found"})
+          return 
+      }
+
+      await job.deleteOne()
+      res.status(200).json({message:"Deleted Succesfully"})
+  }
+  catch(error){
+      res.status(500).json({message:"internal Server Error",error:error.message})
+  }
+}
+
 
 
 export const findAdminJobs =  async (req , res) =>  {

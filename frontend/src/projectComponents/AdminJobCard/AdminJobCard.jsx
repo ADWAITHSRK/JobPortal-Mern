@@ -21,7 +21,7 @@ import {
 //   applications: [1, 2, 3, 4], // Example count
 // };
 
-const JobCard = ({ job }) => {
+const AdminJobCard = ({ job }) => {
  
 
 
@@ -92,4 +92,4 @@ const JobCard = ({ job }) => {
   );
 };
 
-export default JobCard;
+export default AdminJobCard;
