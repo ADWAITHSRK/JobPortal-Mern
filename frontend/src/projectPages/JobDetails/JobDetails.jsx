@@ -89,13 +89,11 @@ const JobDetails = () => {
 
           <Divider className="my-6" />
 
-          {/* Job Description */}
           <div>
             <h2 className="text-xl font-semibold text-gray-800 underline">About the Job</h2>
             <p className="text-gray-700 mt-3 leading-relaxed">{job.description}</p>
           </div>
 
-          {/* Job Requirements */}
           <div className="mt-6">
             <h2 className="text-xl font-semibold text-gray-800 underline">Requirements</h2>
             <ul className="list-disc ml-5 mt-3 text-gray-700 space-y-1">
@@ -105,7 +103,7 @@ const JobDetails = () => {
             </ul>
           </div>
 
-          {/* Benefits */}
+          
           <div className="mt-6">
             <h2 className="text-xl font-semibold text-gray-800 underline">Benefits</h2>
             <ul className="list-disc ml-5 mt-3 text-gray-700 space-y-1">
@@ -115,13 +113,13 @@ const JobDetails = () => {
             </ul>
           </div>
 
-          {/* Salary */}
+          
           <div className="mt-6">
             <h2 className="text-xl font-semibold text-gray-800 underline">Salary</h2>
             <p className="text-gray-800 font-bold text-lg mt-2">💰 ${job.salary} / year</p>
           </div>
 
-          {/* Action Buttons */}
+          
           <div className="mt-8 flex flex-col md:flex-row gap-4">
             <Button className="bg-blue-600 text-white w-full md:w-auto px-8 py-2">
               Apply Now

@@ -54,7 +54,7 @@ export const postJob = async (req, res) => {
 
 export const findAllJobs =  async (req , res) =>  {
     try  {
-        const jobs = await  Job.find({})
+        const jobs = await  Job.find({}).populate({path:"company",createdAt:-1})
         if (jobs.length  == 0) {
             res.status(404).json({message:"job Not Found"})
             return 
@@ -68,7 +68,7 @@ export const findAllJobs =  async (req , res) =>  {
 
 export const findJobById =  async (req , res) =>  {
     try  {
-        const job = await  Job.findById({_id:req.params.id}).populate({path:"applications"})
+        const job = await  Job.findById({_id:req.params.id}).populate({path:"applications"}).populate({path:"company"})
         if (!job) {
             res.status(404).json({message:"job Not Found"})
             return 
@@ -100,7 +100,8 @@ export const findJobByIdAndDelete =  async (req , res) =>  {
 
 export const findAdminJobs =  async (req , res) =>  {
     try  {
-        const jobs = await  Job.find({created_by:req._id}).populate({path:"company",createdAt:-1})
+      const Id = req._id
+        const jobs = await  Job.find({created_by:Id}).populate({path:"company",createdAt:-1})
         if (jobs.length  == 0) {
             res.status(404).json({message:"job Not Found"})
             return 
@@ -127,33 +128,40 @@ export const findApplicants =  async (req , res) =>  {
 }
 
 
-export const editJob =  async (req , res) =>  {
-  try  {
-      const {id} = req.params
-      const {title , description , requirements , salary , location ,jobType , experienceLevel , position } = req.body
 
-      const job = await job.findOne({_id:id})
-      if(!job){
-        return res.status(404).json({message:"Job Not Found"})
-      }
+export const editJob = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { 
+      title, 
+      description, 
+      requirements,  // This should be an array
+      salary, 
+      location, 
+      jobType, 
+      experienceLevel, 
+      position 
+    } = req.body;
 
+    const job = await Job.findOne({ _id: id });
+    if (!job) {
+      return res.status(404).json({ message: "Job Not Found" });
+    }
+
+    
     if (title) job.title = title;
     if (description) job.description = description;
-    if (requirements) job.requirements = requirements;
+    if (requirements) job.requirements = requirements; 
     if (salary) job.salary = salary;
     if (location) job.location = location;
     if (jobType) job.jobType = jobType;
     if (experienceLevel) job.experienceLevel = experienceLevel;
     if (position) job.position = position;
 
-    await job.save()
-    return res.status(200).json(job)
-  }
-  catch(error){
-      res.status(500).json({message:"internal Server Error",error:error.message})
+    await job.save();
+    return res.status(200).json(job);
+  } catch (error) {
+    res.status(500).json({ message: "Internal Server Error", error: error.message });
   }
 }
-
-
-
 

@@ -8,7 +8,7 @@ const router = express.Router()
 router.post('/register',upload.array("image", 5),uploadToCloudinary,register)
 router.post('/login',login)
 router.post('/logout',authMiddleware,logout)
-router.patch('/update',authMiddleware,upload.array("images", 5),uploadToCloudinary,updateProfile)
+router.put('/update',authMiddleware,upload.array("images", 5),uploadToCloudinary,updateProfile)
 
 
 router.get('/getprofile',authMiddleware,getProfile)

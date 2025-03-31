@@ -11,7 +11,18 @@ import {
 } from "../../components/components/ui/avatar";
 import { Badge } from "../../components/components/ui/badge";
 import { Button } from "../../components/components/ui/button";
-import { Mail, Phone, FileText, Building, Edit2Icon, DeleteIcon, Delete, LucideDelete, Edit } from "lucide-react";
+import { Button as Btn } from "antd";
+import {
+  Mail,
+  Phone,
+  FileText,
+  Building,
+  Edit2Icon,
+  DeleteIcon,
+  Delete,
+  LucideDelete,
+  Edit,
+} from "lucide-react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useGetprofileQuery } from "../../redux/features/userApiSlice.js";
@@ -19,9 +30,9 @@ import { useGetcompanyQuery } from "../../redux/features/companyApiSlice.js";
 
 const Profile = () => {
   const { data: user, isLoading, error } = useGetprofileQuery();
-  const {data: company} = useGetcompanyQuery()
+  const { data: company } = useGetcompanyQuery();
   const navigate = useNavigate();
-  console.log(company)
+  console.log(company);
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading profile</p>;
   if (!user) return <p>No user data available</p>;
@@ -53,18 +64,27 @@ const Profile = () => {
         {/* Profile Header */}
         <CardHeader className="flex flex-col items-center">
           <div className="flex flex-col gap-4">
-          <Avatar className="w-28 h-28 shadow-lg border">
-            <AvatarImage src={user.profile.profilePhoto} alt={user.fullName} />
-            {/* <AvatarFallback>
+            <Avatar className="w-28 h-28 shadow-lg border">
+              <AvatarImage
+                src={user.profile.profilePhoto}
+                alt={user.fullName}
+              />
+              {/* <AvatarFallback>
               {user.fullName
                 .split(" ")
                 .map((n) => n[0])
                 .join("")}
             </AvatarFallback> */}
-          </Avatar>
-          <Button size="lg" className="cursor-pointer" onClick={()=>navigate('/update-profile')} ><Edit size="xl"/></Button>
+            </Avatar>
+            <Button
+              size="lg"
+              className="cursor-pointer"
+              onClick={() => navigate("/update-profile")}
+            >
+              <Edit size="xl" />
+            </Button>
           </div>
-          
+
           <CardTitle className="text-2xl font-bold mt-3">
             {user.fullName}
           </CardTitle>
@@ -123,51 +143,53 @@ const Profile = () => {
                       className="w-16 h-16 object-contain rounded-md border"
                     />
                     <div className="flex flex-col justify-between">
-                    <Button
-                    onClick={()=>(navigate('/company-update'))}
-                      size="small"
-                      className="flex items-center justify-center !p-0 !h-6 !w-6 cursor-pointer"
-                      
-                    >
-                      <Edit2Icon className="w-3 h-3" />
-                    </Button>
-                    <Button size='small' className='flex items-center justify-center'><DeleteOutlined/></Button>
+                      <Button
+                        onClick={() => navigate("/company-update")}
+                        size="small"
+                        className="flex items-center justify-center !p-0 !h-6 !w-6 cursor-pointer"
+                      >
+                        <Edit2Icon className="w-3 h-3" />
+                      </Button>
+                      <Button
+                        size="small"
+                        className="flex items-center justify-center"
+                      >
+                        <DeleteOutlined />
+                      </Button>
                     </div>
-                   
                   </div>
 
                   <span className="text-sm mt-2.5 flex text-gray-800">
-                    <p className="text-gray-700">ID:</p>{company._id}
+                    <p className="text-gray-700">ID:</p>
+                    {company._id}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-lg font-semibold">
-                    {company?.name}
-                  </h3>
+                  <h3 className="text-lg font-semibold">{company?.name}</h3>
                 </div>
               </div>
               <hr />
             </div>
           )}
 
-          {/* Resume Section */}
           {user.role === "applicant" && (
             <div className="">
               <h3 className="text-lg font-semibold">Resume</h3>
-              <Button
-                variant="outline"
-                as="a"
-                href={user.profile.resume}
-                download={user.profile.resumeOriginalName}
-                className="mt-2 flex items-center gap-2"
-              >
-                <FileText className="w-5 h-5" /> Download Resume
+              <Button asChild variant="default" className="gap-2">
+                <a
+                  href={user.profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                >
+                  <FileText className="h-4 w-4" />
+                  View Resume
+                </a>
               </Button>
             </div>
           )}
 
-          {/* Last Updated */}
           <p className="text-sm text-gray-500 text-center">
             Last updated: {new Date(user.updatedAt).toLocaleDateString()}
           </p>

@@ -7,7 +7,7 @@ import {
   LucideBookmarkX,
   Star,
 } from "lucide-react";
-
+import { Navigate, useNavigate } from "react-router-dom";
 // const job = {
 //   title: "Programmer Analyst",
 //   location: "Hyderabad, India",
@@ -23,7 +23,7 @@ import {
 
 const AdminJobCard = ({ job }) => {
  
-
+const navigate = useNavigate()
 
   return (
     <div className="">
@@ -67,13 +67,14 @@ const AdminJobCard = ({ job }) => {
               {job.applications.length} applicants
             </span>
           </div>
-          <div className="flex justify-between items-center mb-3">
+          <div className="flex justify-between items-center mb-3 gap-3">
             <Button
               style={{
                 backgroundColor: "#e5e7eb", // bg-gray-200
                 borderBottom: "1px solid white",
                 boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
               }}
+              onClick={()=>navigate(`/admin-jobdetails/${job._id}`)}
             >
               Details
             </Button>
@@ -83,7 +84,7 @@ const AdminJobCard = ({ job }) => {
               disabled={''}
               style={{ backgroundColor: "#fde68a" }} // bg-amber-200
             >
-              Edit
+              Applicants
             </Button>
           </div>
         </div>

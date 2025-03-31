@@ -16,12 +16,19 @@ import CreateCompanyForm from "./projectPages/CreateCompany/CreateCompany";
 import CompanyProfile from "./projectPages/CompanyProfile/CompanyProfile";
 import AdminJob from "./projectPages/AdminJobsPage/AdminJobsPage";
 import UpdateProfile from "./projectPages/UploadProfilePage/UpdateProfilePage";
+import AdminJobDetails from "./projectPages/AdminJobDetails/AdminJobDetails";
+import AdminJobEdit from "./projectPages/AdminJobEdit/AdminJobEdit";
+import Job from "./projectPages/Job/Job";
 
 const App = () => {
   const router = createBrowserRouter([
     {
       path: "/",
       element:<Layout><Home /></Layout> ,
+    },
+    {
+      path: "/alljobs",
+      element:<Layout><Job /></Layout> ,
     },
     {
       path: "/update-profile",
@@ -66,16 +73,25 @@ const App = () => {
     },
     {
       path: "/saved",
-      element: <SavedJobs />,
+      element: <Layout><SavedJobs /></Layout>,
     },
     {
       path: "/admin-job",
-      element: <AdminJob />,
+      element:<Layout> <AdminJob /></Layout>,
     },
     {
       path: "/job-edit",
       element: <JobEdit />,
     },
+    {
+      path: "/admin-jobdetails/:id",
+      element: <Layout><AdminJobDetails /></Layout>,
+    },
+    {
+      path: "/admin-jobedit/:id",
+      element: <Layout><AdminJobEdit /></Layout>,
+    },
+  
   
   ]);
   return (

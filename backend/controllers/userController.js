@@ -100,44 +100,48 @@ export const getProfile = async (req, res) => {
 };
 ;
 
-export const updateProfile = async (req,res) => {
-  try{
-    const {fullName,email,phoneNumber,bio,skills } = req.body
-
-    let array
-    if(skills){
-      array=skills.split(",")
+export const updateProfile = async (req, res) => {
+  try {
+    const { fullName, email, phoneNumber, bio, skills } = req.body;
+    const Id = req._id;
+    
+    
+    let skillsArray = [];
+    if (skills) {
+      skillsArray = skills.split(",").map(skill => skill.trim());
     }
-    const user = await User.findById(req._id)
-    if (!user){
-      res.status(400).json({message:"user not Found",success:false})
-      return
-
+    
+    
+    const user = await User.findById(Id)
+    if (!user) {
+      return res.status(400).json({ message: "User not found", success: false });
     }
-    user.fullName = fullName
-    user.email = email
-    user.phoneNumber = phoneNumber
-    user.profile.bio=bio
-    user.profile.skills=array
-
-    const cloudinaryUrls = req.body.cloudinaryUrls;
-    const cloudinaryName = req.body.cloudinaryName
-    if (cloudinaryUrls.length === 0) {
-      res.status(500).json({ message: "Internal Server Error" });
-      return;
+    
+    
+    user.fullName = fullName;
+    user.email = email;
+    user.phoneNumber = phoneNumber;
+    user.profile.bio = bio;
+    user.profile.skills = skillsArray;
+    
+    
+    const cloudinaryUrls = req.body.cloudinaryUrls || [];
+    
+    
+    if (cloudinaryUrls.length > 0) {
+      const image = cloudinaryUrls[0];
+      const name = fullName+"resume"
+      
+      user.profile.resume = image;
+      user.profile.resumeOriginalName = name;
     }
-    const image = cloudinaryUrls[0];
-    const name = cloudinaryName[0]
-    user.profile.resume = image
-    user.profile.resumeOriginalName=name
-
-    return res.status(200).json({message:"user Updated SuccesFully"})
-
-
-
-  }
-  catch(error){
-      res.status(500).json({message:"Internal Server Error"})
-      return 
+    
+    // Save the user
+    await user.save();
+    
+    return res.status(200).json({ message: "User updated successfully", success: true });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    return res.status(500).json({ message: error.message, success: false });
   }
 }

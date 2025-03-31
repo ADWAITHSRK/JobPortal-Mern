@@ -46,7 +46,11 @@ const Navbar = () => {
               {user && user.role === "recruiter" ? (
                 <>
                   <li>
-                    <Link>My-Jobs</Link>
+                    <Link to='/admin-job'  className={
+                        location.pathname.startsWith("/admin-job")  ||location.pathname.startsWith('/admin-jobdetails')
+                          ? "underline text-blue-500"
+                          : ""
+                      }>My-Jobs</Link>
                   </li>
                   <li>
                     <Link
@@ -55,12 +59,17 @@ const Navbar = () => {
                           ? "underline text-blue-500"
                           : ""
                       }
+                      to='/job-creation'
                     >
                       Create-Jobs
                     </Link>
                   </li>
                   <li>
-                    <Link to="/company-profile">Company</Link>
+                    <Link to="/company-profile"  className={
+                        location.pathname === "/company-profile"
+                          ? "underline text-blue-500"
+                          : ""
+                      }>Company</Link>
                   </li>
                 </>
               ) : (

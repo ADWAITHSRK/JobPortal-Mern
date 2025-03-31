@@ -26,7 +26,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
             query : (formData) =>(
                 {
                     url :'/user/update',
-                    method:"POST",
+                    method:"PUT",
                     body:formData,
                 }
             )

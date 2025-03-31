@@ -1,75 +1,79 @@
-import { Loader2 } from "lucide-react";
+import { File, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Upload, Button } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import Password from "antd/es/input/Password";
-import { useUpdateprofileMutation , useGetprofileQuery} from "../../redux/features/userApiSlice.js";
-import { toast } from "sonner"
+import {
+  useUpdateprofileMutation,
+  useGetprofileQuery,
+} from "../../redux/features/userApiSlice.js";
+import { toast } from "sonner";
 
 const UpdateProfile = () => {
-  const [updateprofile , {loading}] = useUpdateprofileMutation();
+  const [updateprofile, { loading }] = useUpdateprofileMutation();
   const { data: user } = useGetprofileQuery();
 
-  const [file , setFile] = useState(null)
-  const [formdata ,setFormData] = useState({
-    fullName : '',
-    email : '',
-    phoneNumber : '',
-    bio : '',
-    skills : '',
-  })
+  const [fl, setFile] = useState(null);
+  const [formdata, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    bio: "",
+    skills: "",
+  });
 
-  useEffect(()=>{
-    if(user){
+  useEffect(() => {
+    if (user) {
       setFormData({
-        fullName : user.fullName,
-        email : user.email,
-        phoneNumber : user.phoneNumber,
-        bio : user.profile.bio,
-        skills : user.profile.skills.join(''),})
-
+        fullName: user.fullName,
+        email: user.email,
+        phoneNumber: user.phoneNumber,
+        bio: user.profile.bio,
+        skills: user.profile.skills.join(""),
+      });
     }
-  },[user])
+  }, [user]);
 
-  const handleInputChange = async (e) =>{
-    const {name ,value} = e.target
-    setFormData(({...formdata ,[name]:value}))
-  }
+  const handleInputChange = async (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formdata, [name]: value });
+  };
 
-  const handleFileChange = async ({file}) => {
+  const handleFileChange = async ({ file }) => {
+    console.log("asdfgh",file)
     setFile(file);
-  }
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append('fullName', formdata.fullName);
-      formData.append('email', formdata.email);
-      formData.append('phoneNumber', formdata.phoneNumber);
-      formData.append('bio', formdata.bio);
-      formData.append('skills', formdata.skills);
-      if(file) {
-        formData.append('image', file);
+      formData.append("fullName", formdata.fullName);
+      formData.append("email", formdata.email);
+      formData.append("phoneNumber", formdata.phoneNumber);
+      formData.append("bio", formdata.bio);
+      formData.append("skills", formdata.skills);
+      if (fl) {
+        formData.append("images", fl);
       }
-  
-      const res = await updateprofile(formData).unwrap()
-      toast.success("User Registered Successfully")
+
+      const res = await updateprofile(formData).unwrap();
+      toast.success("User Updated Successfully");
       setFormData({
-        fullName : '',
-        email : '',
-        phoneNumber : '',
-        bio : '',
-        skills : '',})
-        setFile(null)
-      console.log(res)
+        fullName: "",
+        email: "",
+        phoneNumber: "",
+        bio: "",
+        skills: "",
+      });
+      setFile(null);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+      toast.error("User Updation Failed");
     }
-    catch(err){
-      console.log(err)
-      toast.error("User Registration Failed")
-    }
-  }
+  };
 
   return (
     <div class="flex items-center h-screen bg-white  ">
@@ -77,7 +81,7 @@ const UpdateProfile = () => {
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6 ">
           Update Profile
         </h2>
-        <form  onSubmit={handleSubmit} className="mb-2">
+        <form onSubmit={handleSubmit} className="mb-2">
           <div className="mb-3">
             <label
               htmlFor="fullName"
@@ -130,10 +134,7 @@ const UpdateProfile = () => {
             />
           </div>
           <div className="mb-3">
-            <label
-              htmlFor="bio"
-              className="text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="bio" className="text-sm font-medium text-gray-700">
               Bio
             </label>
             <input
@@ -146,14 +147,14 @@ const UpdateProfile = () => {
               placeholder="Enter your Bio"
             />
           </div>
-            <div>
-              <label
-                htmlFor="skills"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Skills
-              </label>
-              <input
+          <div>
+            <label
+              htmlFor="skills"
+              className="block text-sm font-medium text-gray-700"
+            >
+              Skills
+            </label>
+            <input
               type="text"
               name="skills"
               id="skills"
@@ -162,24 +163,24 @@ const UpdateProfile = () => {
               className="mt-1 w-full rounded-md shadow-sm"
               placeholder="Enter your Skills With Comma Seperator"
             />
-            </div>
+          </div>
 
-            
-          
-          <div className="mt-3">
-              <Upload style={{ height: "25px" }} onChange={handleFileChange}
-                beforeUpload={() => false} // Prevent automatic upload
-                accept="image/*"
-                showUploadList={true}>
-                  
-                <Button
-                  icon={<UploadOutlined />}
-                  style={{ height: "25px", lineHeight: "25px" }}
-                >
-                  Upload Profile Photo
-                </Button>
-              </Upload>
-            </div>
+          <div className="mt-5">
+            <Upload
+              style={{ height: "25px" }}
+              onChange={handleFileChange}
+              beforeUpload={() => false} 
+              accept=".pdf,.doc,.docx,image/*"
+              showUploadList={true}
+            >
+              <Button
+                icon={<File className="w-4 h-4" />}
+                style={{ height: "25px", lineHeight: "25px" }}
+              >
+                Upload Resume
+              </Button>
+            </Upload>
+          </div>
 
           <button
             type="submit"
@@ -193,7 +194,6 @@ const UpdateProfile = () => {
               <>Update</>
             )}
           </button>
-        
         </form>
       </div>
     </div>
