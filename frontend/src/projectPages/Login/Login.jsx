@@ -1,7 +1,7 @@
 import { Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
-import { useLoginMutation } from "../../redux/features/userApiSlice.js";
+import {  useLoginMutation } from "../../redux/features/userApiSlice.js";
 import Navbar from "../../projectComponents/Navbar/Navbar";
 import { useNavigate } from "react-router-dom";
 import { toast, Toaster } from "sonner";
@@ -18,12 +18,19 @@ const Login = () => {
     e.preventDefault()
     try{
       const res = await login({email,password,role}).unwrap()
-      navigate('/')
       toast.success("User Logged In Successfully")
       setEmail('')
       setPassword('')
       setRole('')
       console.log(res)
+      if(res?.role === 'applicant'){
+        navigate('/')
+      }
+      else{
+        navigate('/admin-job')
+
+      }
+      
     }
     catch(err){
       toast.error("User Login Failed")

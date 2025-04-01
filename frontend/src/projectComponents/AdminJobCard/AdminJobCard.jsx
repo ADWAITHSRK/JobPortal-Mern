@@ -80,9 +80,9 @@ const navigate = useNavigate()
             </Button>
 
             <Button
-              onClick={''}
-              disabled={''}
               style={{ backgroundColor: "#fde68a" }} // bg-amber-200
+              onClick={()=>navigate(`/admin-applicants/${job._id}`)}
+
             >
               Applicants
             </Button>

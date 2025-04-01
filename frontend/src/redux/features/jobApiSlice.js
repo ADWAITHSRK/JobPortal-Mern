@@ -59,6 +59,15 @@ export const companyApiSlice = apiSlice.injectEndpoints({
                 }
             )
         }),
+        findapplicants : builder.query({
+            query : (id) =>(
+                {
+                    url :`/job/find-applicants/${id}`,
+                    method:"GET",
+                    credentials:'include',
+                }
+            )
+        }),
         
     })
 })
@@ -69,5 +78,6 @@ export const {
     useFindjobbyidQuery,
     useEditjobMutation,
     useDeletejobMutation,
-    useFindalljobsQuery
+    useFindalljobsQuery,
+    useFindapplicantsQuery
   } = companyApiSlice;

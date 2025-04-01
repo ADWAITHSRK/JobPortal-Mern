@@ -10,6 +10,7 @@ import { save } from "../.././redux/features/savedJobSlice.js";
 import { useApplyjobMutation } from "../../redux/features/applicationSlice.js";
 import { usePrevapplyQuery } from "../../redux/features/applicationSlice.js";
 import { toast } from "sonner";
+import { useGetprofileQuery } from "../../redux/features/userApiSlice.js";
 
 const JobDetails = () => {
   const [applyjob] = useApplyjobMutation()
@@ -17,7 +18,9 @@ const JobDetails = () => {
   const { id } = useParams();
   const { data: job, refetch } = useFindjobbyidQuery(id);
   const {data :prevapply} = usePrevapplyQuery(job?._id)
+  const {data:user} = useGetprofileQuery()
   console.log("asfds",prevapply)
+  console.log("The User is",user)
 
 
   useEffect(() => {
@@ -45,14 +48,20 @@ const savedJobs = useSelector((state) => state.savedJobs.savedJobs);
 
   const applicationControl = async () =>{
     try {
-      if(!prevapply) {
-        await applyjob(job?._id).unwrap()
-        toast.success("job Applied SuccesFully")
+      if(user){
+        if(!prevapply) {
+          await applyjob(job?._id).unwrap()
+          toast.success("job Applied SuccesFully")
+        }
+        else{
+          toast.error("Job Already Applied")
+        }
+         
       }
       else{
-        toast.error("Job Already Applied")
+        toast.error("Login Before Apply")
       }
-       
+     
     }
     catch(error){
       console.log(error)

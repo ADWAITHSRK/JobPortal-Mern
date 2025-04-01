@@ -75,7 +75,11 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <Link>Home</Link>
+                    <Link to='/' className= {
+                        location.pathname === "/"
+                          ? "underline text-blue-500"
+                          : ""
+                      }>Home</Link>
                   </li>
                   <li>
                     <Link className= {

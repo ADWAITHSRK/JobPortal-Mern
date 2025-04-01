@@ -9,12 +9,8 @@ router.get('/findalljob',findAllJobs)
 router.get('/findjobbyid/:id',findJobById)
 router.put('/editjob/:id',editJob)
 router.get('/findadminjobs',authMiddleware,findAdminJobs)
-router.get('/findapplicants/:id',authMiddleware,findApplicants)
+router.get('/find-applicants/:id',authMiddleware,findApplicants)
 router.delete('/deletejob/:id',findJobByIdAndDelete)
-
-
-
-
 
 
 export default router;

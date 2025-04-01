@@ -120,7 +120,7 @@ export const findApplicants =  async (req , res) =>  {
           res.status(404).json({message:"job Not Found"})
           return 
       }
-      return  res.status(200).json(job)
+      return  res.status(200).json(job.applications)
   }
   catch(error){
       res.status(500).json({message:"internal Server Error",error:error.message})
