@@ -10,9 +10,12 @@ import {
 } from "../../components/components/ui/table";
 import { useParams } from "react-router-dom";
 import { useFindapplicantsQuery } from "../../redux/features/jobApiSlice.js";
+import { useUpdateMutation } from "../../redux/features/applicationSlice.js";
 import { Select } from "antd";
+import { toast } from "sonner";
 
 const Applicants = () => {
+  const [update] = useUpdateMutation()
   const {id} = useParams()
   console.log(id)
   const {data:application} = useFindapplicantsQuery(id)
@@ -21,22 +24,26 @@ const Applicants = () => {
   const statusOptions = [
     { value: "accepted", label: "Accepted" },
     { value: "rejected", label: "Rejected" },
+    { value: "pending", label: "Pending" },
   ];
   
-  // const statusHandler = async (status, id) => {
-  //   console.log("called");
-  //   try {
-  //     console.log("");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const statusHandler = async (status, id) => {
+  
+    try {
+    const res = await update({status,id}).unwrap()
+    toast.success("Status Updated")
+    console.log(res)
+    } catch (error) {
+      console.log(error)
+      toast.error("Status Updation Failed")
+    }
+  };
 
   return (
     <div className="container mx-auto p-12 mt-5">
       <h1 className="text-center text-2xl mb-8 font-bold">Applicants</h1>
       <Table>
-        <TableCaption>Job Applicants</TableCaption>
+        <TableCaption></TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className='font-bold text-xl'>Full Name</TableHead>
@@ -67,7 +74,7 @@ const Applicants = () => {
                     defaultValue={item?.status || "Pending"}
                     style={{ width: 120 }}
                     options={statusOptions}
-                    // onChange={(value) => statusHandler(value, item._id)}
+                    onChange={(value) => statusHandler(value, item._id)}
                   />
                 </TableCell>
               </TableRow>

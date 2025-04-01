@@ -58,7 +58,7 @@ const AdminJob = () => {
   }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 min-h-screen">
       <div className="mb-12 w-3/4 mx-auto">
         <Input
           size="large"

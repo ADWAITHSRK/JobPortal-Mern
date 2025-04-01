@@ -84,14 +84,14 @@ export const updateStatus = async (req , res) => {
         
 
         if(!status) {
-            res.status(400).json({message:"Some Data is missing"})
-            return
+             return res.status(400).json({message:"Some Data is missing"})
+            
         }
 
         const application = await Application.findById(applicationid)
 
         if (!application) {
-            res.status(400).json({message:"No Application"})
+           return  res.status(400).json({message:"No Application"})
         }
 
         application.status = status.toLowerCase()

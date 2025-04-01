@@ -10,6 +10,6 @@ router.get("/prevapply/:id", authMiddleware, alreadyApplied);
 
 router.get("/my-applications", authMiddleware, getAppliedJobs);
 
-router.put("/update/:id", authMiddleware, updateStatus);
+router.patch("/update/:id", authMiddleware, updateStatus);
 
 export default router;

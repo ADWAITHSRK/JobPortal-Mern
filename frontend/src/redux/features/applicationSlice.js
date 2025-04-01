@@ -29,6 +29,17 @@ export const applicationApiSlice = apiSlice.injectEndpoints({
                 }
             )
         }),
+        update: builder.mutation({
+            query: ({status,id}) => {
+                return {
+                    url: `/application/update/${id}`,
+                    method: 'PATCH',
+                    body: {status:status},
+                    credentials: 'include',
+                    
+                };
+            }
+        }),
         
         
     })
@@ -37,5 +48,6 @@ export const applicationApiSlice = apiSlice.injectEndpoints({
 export const {
     useApplyjobMutation,
     usePrevapplyQuery,
-    useMyapplicationsQuery
+    useMyapplicationsQuery,
+    useUpdateMutation
   } = applicationApiSlice;

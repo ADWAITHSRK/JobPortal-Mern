@@ -23,7 +23,7 @@ const JobCreationForm = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-14">
+    <div className=" min-h-screen max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-xl mt-14 ">
       <h2 className="text-2xl font-bold mb-4 text-center">Create Job</h2>
       <Form layout="vertical" form={form} onFinish={onFinish} className="w-90 ">
         <Form.Item name="title" label="Job Title" rules={[{ required: true, message: "Please enter job title" }]}> 
