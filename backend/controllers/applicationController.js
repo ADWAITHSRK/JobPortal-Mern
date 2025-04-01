@@ -4,9 +4,9 @@ import { Job } from "../models/jobModel.js";
 export const applyJob = async (req,res) => {
     try {
         const userid = req._id
-        const jobid = req.params._id
+        const jobid = req.params.id
 
-        const existingapplication = await Application.find({job:jobid,applicant:userid})
+        const existingapplication = await Application.findOne({job:jobid,applicant:userid})
 
         if(existingapplication){
             res.status(400).json({message:"All ready an Application Exist"})
@@ -30,6 +30,27 @@ export const applyJob = async (req,res) => {
         await job.save();
 
         return res.status(200).json(application)
+    }
+    catch(error){
+        return res.status(500).json({message:"Internal Server Error"})
+
+    }
+}
+
+export const alreadyApplied = async (req,res) => {
+    try {
+        const userid = req._id
+        const jobid = req.params.id
+
+        const existingapplication = await Application.findOne({job:jobid,applicant:userid})
+        if (existingapplication){
+            return res.status(200).json(true)
+        }
+        else{
+            return res.status(200).json(false)
+        }
+
+        
     }
     catch(error){
         return res.status(500).json({message:"Internal Server Error"})

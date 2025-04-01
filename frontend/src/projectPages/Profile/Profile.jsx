@@ -94,7 +94,7 @@ const Profile = () => {
         </CardHeader>
 
         <CardContent className="space-y-6">
-          {/* Contact Info */}
+          
           <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-3 border-b pb-4">
             <p className="text-gray-700 flex items-center gap-2">
               <Mail className="w-5 h-5 text-blue-600" /> {user.email}
@@ -104,7 +104,7 @@ const Profile = () => {
             </p>
           </div>
 
-          {/* Role-Specific Content */}
+          
           {user.role === "applicant" ? (
             <>
               <div>

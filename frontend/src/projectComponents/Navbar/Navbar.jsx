@@ -78,11 +78,24 @@ const Navbar = () => {
                     <Link>Home</Link>
                   </li>
                   <li>
-                    <Link>Jobs</Link>
+                    <Link className= {
+                        location.pathname === "/alljobs"
+                          ? "underline text-blue-500"
+                          : ""
+                      } to="/alljobs">Jobs</Link>
                   </li>
                   <li>
-                    <Link>Saved</Link>
+                    <Link to='/saved' className= {
+                        location.pathname === "/saved"
+                          ? "underline text-blue-500"
+                          : ""
+                      }>Saved</Link>
                   </li>
+                  <li className= {
+                        location.pathname === "/my-applications"
+                          ? "underline text-blue-500"
+                          : ""
+                      }><Link to='/my-applications'>Applied</Link></li>
                 </>
               )}
             </ul>

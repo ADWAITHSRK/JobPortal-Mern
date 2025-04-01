@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, Card, Image, Tag, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { save ,remove } from "../.././redux/features/savedJobSlice.js";
 import {
   Bookmark,
@@ -25,6 +25,7 @@ import {
 // };
 
 const JobCard = ({ job }) => {
+  const navigate = useNavigate()
   const location = useLocation();
   const dispatch = useDispatch();
   const savedJobs = useSelector((state) => state.savedJobs.savedJobs);
@@ -91,6 +92,7 @@ const JobCard = ({ job }) => {
                 borderBottom: "1px solid white",
                 boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.1)",
               }}
+              onClick={()=>navigate(`/jobdetails/${job._id}`)}
             >
               Details
             </Button>

@@ -19,6 +19,7 @@ import UpdateProfile from "./projectPages/UploadProfilePage/UpdateProfilePage";
 import AdminJobDetails from "./projectPages/AdminJobDetails/AdminJobDetails";
 import AdminJobEdit from "./projectPages/AdminJobEdit/AdminJobEdit";
 import Job from "./projectPages/Job/Job";
+import ApplieJobs from "./projectPages/AppliedJobs/ApplieJobs";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const App = () => {
     {
       path: "/alljobs",
       element:<Layout><Job /></Layout> ,
+    },
+    {
+      path: "/my-applications",
+      element:<Layout><ApplieJobs /></Layout> ,
     },
     {
       path: "/update-profile",
@@ -48,7 +53,7 @@ const App = () => {
     },
     
     {
-      path: "/job-details",
+      path: "/jobdetails/:id",
       element:<Layout><JobDetails /></Layout> ,
     },
     {

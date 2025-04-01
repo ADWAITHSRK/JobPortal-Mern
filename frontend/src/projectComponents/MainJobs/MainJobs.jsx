@@ -1,45 +1,20 @@
 import React from "react";
 import JobCard from "../JobCard/JobCard";
+import { useFindalljobsQuery } from "../../redux/features/jobApiSlice.js";
 
 const MainJobs = () => {
-    const jobListings = [
-        {
-          title: "Software Engineer",
-          location: "Banglore, India",
-          jobType: "Full-time",
-          experienceLevel: 2,
-          company: {
-            name: "Google",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-          },
-          createdAt: "2025-03-20T00:00:00Z",
-          applications: [1, 2, 3, 4, 5],
-        },
-        {
-          title: "Data Scientist",
-          location: "Hyderabad, India",
-          jobType: "Contract",
-          experienceLevel: 3,
-          company: {
-            name: "Facebook",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-          },
-          createdAt: "2025-03-19T00:00:00Z",
-          applications: [1, 2],
-        },
-        {
-          title: "Product Manager",
-          location: "Pune, India",
-          jobType: "Full-time",
-          experienceLevel: 5,
-          company: {
-            name: "Microsoft",
-            logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg",
-          },
-          createdAt: "2025-03-18T00:00:00Z",
-          applications: [1, 2, 3],
-        },
-      ];
+  const { data: jobs } = useFindalljobsQuery();
+  let jobListings = [];
+  let i = 0;
+  
+  while (i < jobs?.length && jobListings.length < 3) {
+    if (jobListings.length === 0 || 
+        jobs[i]?.company?.name !== jobListings[jobListings.length-1]?.company?.name) {
+      jobListings.push(jobs[i]);
+    }
+    i++;
+  }
+   console.log(jobs)
   return (
     <div className="flex items-center justify-center bh-white mt-6">
       <div className="container flex items-center justify-center mx-auto ">
