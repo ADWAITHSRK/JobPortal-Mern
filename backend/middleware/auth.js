@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken'
         const token = req.cookies['auth_token']
         
         if(!token){
-            res.status(400).json({message:"Not Authenticated"})
-            return
+            return res.status(400).json({message:"Not Authenticated"})
+            
         }
         const decoded =  jwt.verify(token,process.env.SECRET_KEY)
         req._id = decoded._id
