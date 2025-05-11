@@ -15,10 +15,7 @@ const Home = () => (
   <div className="flex flex-col">
     <Hero />
     <MainJobs />
-    <Profile />
-    <UpdateProfile />
-    <JobSearchPage />
-    <JobDetails />
+    
   </div>
 );
 
