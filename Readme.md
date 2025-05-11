@@ -68,12 +68,13 @@ A full-stack job portal where users can register as **Job Seekers** or **Employe
 
 | Layer       | Technology                   |
 | ----------- | ---------------------------- |
+| Frontend    | React.js, Redux.js           |
 | Backend     | Node.js, Express.js          |
 | Database    | MongoDB, Mongoose ODM        |
 | Auth        | JWT, bcryptjs                |
 | File Upload | Cloudinary (images, resumes) |
 
----
+___
 
 ## 📌 API Endpoints
 
